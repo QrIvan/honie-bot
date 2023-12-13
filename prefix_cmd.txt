@@ -1,0 +1,33 @@
+module.exports = {
+	name: '',
+	aliases: [],
+	category: "",
+	description: "",
+	usage: "",
+	examples: [],
+	run: async (client, message, args, prefix) => {
+
+	}
+}
+
+const { Client, MessageEmbed, version: djsVersion } = require('discord.js');
+
+module.exports = {
+  name: 'ticketinfo',
+  category: 'Support',
+  description: 'Displays bot statistics.',
+  usage: 'stats',
+  examples: ['stats', 'moreinfo'],
+  run: async (client, message, args) => {
+
+    const embed = new MessageEmbed()
+      .setTitle('💡 | Sugerencias')
+      .setColor('BLUE')
+      .addField("Para enviar una sugerencia debes hacer lo siguente:", "➥ En el canal <#1153053747098947674> utiliza `h/suggest [tu suegrencia]`", true)
+      .addField('Ejemplo', '[Click Aquí](https://imgur.com/a/PojDRov)')
+      .setTimestamp();
+
+    message.channel.send({ embeds: [embed] });
+  },
+};
+
