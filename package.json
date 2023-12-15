@@ -19,7 +19,7 @@
     "cheerio": "^1.0.0-rc.12",
     "child_process": "^1.0.2",
     "date-fns": "^2.30.0",
-    "discord-api-types": "^0.35.0",
+    "discord-api-types": "^0.37.65",
     "discord-buttons": "^4.0.0-deprecated",
     "discord-ytdl-core": "^5.0.4",
     "discord.js": "^13.16.0",
