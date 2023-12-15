@@ -10,7 +10,7 @@
   "author": "T.F.A#7524",
   "license": "ISC",
   "dependencies": {
-    "@discordjs/builders": "^0.15.0",
+    "@discordjs/builders": "^0.16.0",
     "@discordjs/rest": "^0.5.0",
     "@discordjs/voice": "^0.16.0",
     "ascii-table": "^0.0.9",
