@@ -1,8 +1,8 @@
 const { MessageEmbed, TextChannel } = require('discord.js');
-const Sugerencia = require('..//..//database/models/sugerenciaModel'); // Importa el modelo de sugerencia
-const { v4: uuidv4 } = require('uuid'); // Importa la función para generar UUID
+const Sugerencia = require('..//..//database/models/sugerenciaModel');
+const { v4: uuidv4 } = require('uuid');
 
-const suggestionChannelID = '1183246713901817916'; // Reemplaza con el ID del canal de sugerencias
+const suggestionChannelID = 'suggestionChannelID';
 
 module.exports = {
     name: 'suggest',
@@ -17,7 +17,7 @@ module.exports = {
         if (!suggestion) {
             const embed = new MessageEmbed()
                 .setColor('RED')
-                .setTitle('`sytem@user/error/suggest`\n<:Moderator_Logo:1183460215782391828> **SUGGESTION** | Missing Error')
+                .setTitle('**SUGGESTION** | Missing Error')
                 .setDescription('Valid use: `h/suggest [suggestion]`.')
 
 
@@ -27,7 +27,7 @@ module.exports = {
         const suggestionChannel = message.guild.channels.cache.get(suggestionChannelID);
 
         if (suggestionChannel instanceof TextChannel) {
-            const suggestionID = generateUniqueID(); // Genera una ID única
+            const suggestionID = generateUniqueID();
 
             const suggestEmbed = new MessageEmbed()
                 .setColor('#e6db13')
@@ -39,22 +39,21 @@ module.exports = {
 
             suggestionChannel.send({ embeds: [suggestEmbed] })
                 .then(async (suggestionMessage) => {
-                    suggestionMessage.react('<:utility12:1183420388580012094>'); // Emoji para aceptar
-                    suggestionMessage.react('<:utility8:1183420380501778514>'); // Emoji para denegar
+                    suggestionMessage.react('🔨'); // Emoji para aceptar
+                    suggestionMessage.react('👍'); // Emoji para denegar
 
                     const successEmbed = new MessageEmbed()
                         .setColor('GREEN')
-                        .setTitle('`sytem@user/new/suggest`\n<:utility12:1183420388580012094> **SUGGESTION** | Submitted')
+                        .setTitle('**SUGGESTION** | Submitted')
                         .setDescription('Your suggestion has been submitted successfully. see more <#1183246713901817916>');
 
                     message.reply({ embeds: [successEmbed] });
 
-                    // Almacena la sugerencia en la base de datos
                     const nuevaSugerencia = new Sugerencia({
                         id: suggestionID,
                         estado: 'Voting',
                         contenido: suggestion,
-                        autor: message.author.tag, // Guarda el autor
+                        autor: message.author.tag,
                     });
 
                     try {
@@ -68,7 +67,7 @@ module.exports = {
                     console.error('[CONSOLE ERROR] Error sending suggestion:', error);
                     const errorEmbed = new MessageEmbed()
                         .setColor('RED')
-                        .setTitle('`sytem@user/error/suggest`\n<:utility8:1183420380501778514> **SUGGESTION** | Error')
+                        .setTitle('**SUGGESTION** | Error')
                         .setDescription('Failed to submit the suggestion. Please try again.');
 
                     message.reply({ embeds: [errorEmbed] });
@@ -76,7 +75,7 @@ module.exports = {
         } else {
             const channelErrorEmbed = new MessageEmbed()
                 .setColor('ORANGE')
-                .setTitle('`sytem@user/error/suggest`\n<:utility8:1183420380501778514> **SUGGESTION** | Channel Error')
+                .setTitle('**SUGGESTION** | Channel Error')
                 .setDescription('Suggestion channel not found. Please contact an administrator.')
 
 
@@ -85,7 +84,6 @@ module.exports = {
     },
 };
 
-// Función para generar una ID única usando uuid
 function generateUniqueID() {
     return uuidv4();
 }
