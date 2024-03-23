@@ -11,25 +11,21 @@ module.exports = {
     usage: "help [command]",
     examples: ["help", "ayuda", "generalhelp ping", "hp avatar", "h mute"],
     run: async (client, message, args, prefix) => {
-        // Event handler to handle menu selection
         const filter = (interaction) =>
             interaction.isSelectMenu() && interaction.customId === 'help-menu';
 
         const collector = message.channel.createMessageComponentCollector({
             filter,
-            time: 60000, // Waiting time in milliseconds (60 seconds in this case)
+            time: 60000,
         });
 
         if (!args[0]) {
-            // Filter categories and exclude "Admin" and "Development"
-            const categories = client.categories.filter(cat => !['Admin', 'Development', 'Remind', 'Giveaways'].includes(cat));
+            const categories = client.categories.filter(cat => !['Admin', 'Development'].includes(cat));
 
-            // Embed:
             const embed = new MessageEmbed()
                 .setTitle("🔎・➥ Select a category from the selection menu below to view the commands.")
                 .setFooter(`📬 For more information about a command, use: ${prefix}help [command]`);
 
-            // Prefix commands menu:
             const rowMenu = new MessageActionRow()
                 .addComponents([
                     new MessageSelectMenu()
@@ -45,7 +41,6 @@ module.exports = {
                 ]);
 
             message.reply({ embeds: [embed], components: [rowMenu] }).then(async (msg) => {
-                // Select menu collector:
                 const filter = i => i.user.id === message.member.id;
                 const collector = await msg.createMessageComponentCollector({
                     filter: filter,
@@ -84,7 +79,7 @@ module.exports = {
                 collector.on('end', (collected) => {
                     if (collected.size === 0) {
                         msg.delete().catch(() => { });
-                        message.reply('<a:ZLogoTTM:1183420434843181126> **HELP** | Time ran out to select a category.');
+                        message.reply('**HELP** | Time ran out to select a category.');
                     }
                 });
             });
@@ -99,7 +94,7 @@ module.exports = {
 
             if (!command) {
                 const embed = new MessageEmbed()
-                    .setDescription(`<:utility8:1183420380501778514> **HELP** | That command couldn't be found, try running the \`${prefix}help\` command.`)
+                    .setDescription(`**HELP** | That command couldn't be found, try running the \`${prefix}help\` command.`)
                     .setColor("RED");
 
                 return message.reply({ embeds: [embed] }).then(async (timeout) => {
@@ -125,7 +120,7 @@ module.exports = {
 
         collector.on('end', (collected) => {
             if (collected.size === 0) {
-                message.reply('<a:ZLogoTTM:1183420434843181126> **HELP** | Time ran out to select a category.');
+                message.reply(' **HELP** | Time ran out to select a category.');
             }
         });
     },
