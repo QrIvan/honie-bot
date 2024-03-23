@@ -9,7 +9,7 @@ module.exports = {
     examples: ["adduser 828991790324514887"],
     run: async (client, message, args) => {
         const member = message.member;
-        const roleIDsToSearch = ['1183419688705867777', '1183246663448531006', '1183246662605471796'];
+        const roleIDsToSearch = ['ROL_STAFF', 'ROL_STAFF', 'ROL_STAFF'];
 
         const rolesFound = [];
 
@@ -20,40 +20,34 @@ module.exports = {
             }
         });
 
-        // Check if the member has administrator permissions
         const isAdmin = member.permissions.has(Permissions.FLAGS.ADMINISTRATOR);
-
-        // Check if the member has any of the specified roles or administrator permissions
         if (rolesFound.length === 0 && !isAdmin) {
             const noPermissionEmbed = new MessageEmbed()
                 .setColor('#ff0000')
-                .setTitle('`sytem@user/perms/tickets`\n<:Moderator_Logo:1183460215782391828> **TICKETS** | Permission Denied')
+                .setTitle('**TICKETS** | Permission Denied')
                 .setDescription('You do not have permissions to use this command.');
             return message.reply({ embeds: [noPermissionEmbed] });
         }
-        // Check if a valid user ID was provided
         const userId = args[0];
         const mentionedUser = client.users.cache.get(userId);
 
         if (!mentionedUser) {
             const invalidUserEmbed = new MessageEmbed()
                 .setColor('#ff0000')
-                .setTitle('`sytem@user/error/tickets`\n<:Moderator_Logo:1183460215782391828> **TICKETS** | Invalid User ID')
+                .setTitle('**TICKETS** | Invalid User ID')
                 .setDescription('Valid use: `h/adduser [userID]`.');
             return message.reply({ embeds: [invalidUserEmbed] });
         }
 
-        // Update channel permissions so the new user can view, send messages, and read message history
         message.channel.permissionOverwrites.edit(mentionedUser, {
             VIEW_CHANNEL: true,
             SEND_MESSAGES: true,
             READ_MESSAGE_HISTORY: true
         });
 
-        // Confirmation message in the text channel
         const confirmationEmbed = new MessageEmbed()
             .setColor('RANDOM')
-            .setTitle('`sytem@user/confirm/tickets`\n<:Honie_Check:1180626860682530937> **TICKETS** | User Added')
+            .setTitle('**TICKETS** | User Added')
             .setDescription(`User ${mentionedUser.tag} has been added to the ticket.`);
 
         message.reply({ embeds: [confirmationEmbed] });
