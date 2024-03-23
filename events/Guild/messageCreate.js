@@ -4,9 +4,9 @@ const Discord = require('discord.js');
 const { Client, Intents, MessageEmbed, WebhookClient } = require('discord.js');
 
 const verificationCommand = 'verify'; // Comando de verificación
-const roleToAddID = '1183246678766133298'; // ID del rol "Verificado"
-const roleToRemoveID = '1183481516072898652'; // ID del rol "No Verificado"
-const allowedVerificationChannelID = '1183246688173965443'; // Reemplaza 'ID_DEL_CANAL_VERIFICACION' con el ID del canal de verificación
+const roleToAddID = 'Verificado'; // ID del rol "Verificado"
+const roleToRemoveID = 'No Verificado'; // ID del rol "No Verificado"
+const allowedVerificationChannelID = 'ID_DEL_CANAL_VERIFICACION'; // Reemplaza 'ID_DEL_CANAL_VERIFICACION' con el ID del canal de verificación
 
 client.on('guildMemberAdd', (member) => {
     // Cuando un miembro entra, asigna el rol "No Verificado" y quita el rol "Verificado"
@@ -22,7 +22,7 @@ client.on('guildMemberAdd', (member) => {
         welcomeChannel.send(`${member}`).then(memberMention => {
             const welcomeEmbed = new Discord.MessageEmbed()
                 .setColor('#0099ff')
-                .setTitle(`Welcome to the server! <a:HELLOGOODBYE:1183420457869905920>`)
+                .setTitle(`Welcome to the server! :wave:`)
                 .setDescription(`To **verify** your account, use the \`${config.prefix}${verificationCommand}\` command in this channel.`)
                 .setThumbnail(member.user.displayAvatarURL({ dynamic: true }))
                 .setTimestamp()
@@ -45,13 +45,12 @@ client.on('messageCreate', (message) => {
     const botMention = message.mentions.users.has(client.user.id);
 
     if (botMention) {
-        // Respuesta en formato de embed
         const embed = new MessageEmbed()
             .setColor('#3498db')
-            .setTitle('<a:HELLOGOODBYE:1183420457869905920> Hello! How can I help you?')
+            .setTitle(':wave: Hello! How can I help you?')
             .setDescription('If you need assistance with commands or support, you can use the following:')
-            .addField('Command Help <a:PepeGif:1183420410897903666>', 'Use `h/help` to get information about available commands.')
-            .addField('Support Ticket <a:uh_stafflogo:1183420465902006273>', 'If you need further assistance, create a support ticket with `h/ticket`.')
+            .addField('Command Help', 'Use `h/help` to get information about available commands.')
+            .addField('Support Ticket', 'If you need further assistance, create a support ticket with `h/ticket`.')
             .setFooter('Honie Studios | Bot Assistance')
             .setTimestamp();
 
@@ -72,7 +71,7 @@ client.on('messageCreate', async (message) => {
 
     if (cmd === verificationCommand) {
         if (message.channel.id !== allowedVerificationChannelID) {
-            return message.reply('<:utility8:1183420380501778514> | You cannot use this command on this channel.');
+            return message.reply(':x: | You cannot use this command on this channel.');
         }
 
         if (!message.member.roles.cache.has(roleToAddID)) {
@@ -82,15 +81,13 @@ client.on('messageCreate', async (message) => {
             message.member.roles.add(roleToAdd).then(() => {
                 message.member.roles.remove(roleToRemove);
 
-                // Enviar un mensaje en formato de embed
                 const embed = new Discord.MessageEmbed()
                     .setColor('#00ff00')
-                    .setTitle('You have successfully verified yourself <:utility12:1183420388580012094>')
+                    .setTitle('You have successfully verified yourself 👍')
                     .setDescription('Enjoy the server and all its channels to the fullest! :hugging:')
-                    .setFooter('<:Moderator_Logo:1183460215782391828> | This message will be deleted in 1 minute.');
+                    .setFooter('This message will be deleted in 1 minute.');
 
                 message.reply({ embeds: [embed] }).then((reply) => {
-                    // Eliminar el mensaje después de 1 minuto
                     setTimeout(() => {
                         message.delete();
                         reply.delete();
@@ -98,18 +95,16 @@ client.on('messageCreate', async (message) => {
                 });
             }).catch((error) => {
                 console.error('[CONSOLE ERROR] Error al verificar usuario:', error);
-                message.reply('<:utility8:1183420380501778514> | Could not verify, contact an administrator.');
+                message.reply(':x: | Could not verify, contact an administrator.');
             });
         } else {
-            // Enviar un mensaje en formato de embed
             const embed = new Discord.MessageEmbed()
                 .setColor('#ff0000')
-                .setTitle('<:utility8:1183420380501778514> | You are already verified ')
+                .setTitle(':x: | You are already verified ')
                 .setDescription('If it is already verified, we recommend not using this command anymore.')
-                .setFooter('<:Moderator_Logo:1183460215782391828> | This message will be deleted in 1 minute.');
+                .setFooter('This message will be deleted in 1 minute.');
 
             message.reply({ embeds: [embed] }).then((reply) => {
-                // Eliminar el mensaje después de 1 minuto
                 setTimeout(() => {
                     message.delete();
                     reply.delete();
@@ -140,14 +135,12 @@ client.on('messageCreate', async (message) => {
 
                 console.error(`[ERROR] Error ID: ${errorID}\n ` + e);
 
-                // Enviar un mensaje en formato de embed
                 const embed = new Discord.MessageEmbed()
                     .setColor('#ff0000')
                     .setDescription(`Ocurrió un error. ID de error: \`${errorID}\``)
-                    .setFooter('<:Moderator_Logo:1183460215782391828> | This message will be deleted in 1 minute.');
+                    .setFooter('This message will be deleted in 1 minute.');
 
                 message.reply({ embeds: [embed] }).then((reply) => {
-                    // Eliminar el mensaje después de 1 minuto
                     setTimeout(() => {
                         message.delete();
                         reply.delete();
@@ -158,7 +151,7 @@ client.on('messageCreate', async (message) => {
     }
 });
 
-const logChannelId = '1183447592395350128'; // Reemplaza con el ID de tu canal de registro
+const logChannelId = 'ID_DEL_CANAL_LOGS'; // Reemplaza con el ID de tu canal de registro
 
 //MESSAGE LOG
 client.on('messageUpdate', (oldMessage, newMessage) => {
@@ -167,7 +160,7 @@ client.on('messageUpdate', (oldMessage, newMessage) => {
     if (logChannel) {
         const embed = new MessageEmbed()
             .setColor('#3498db')
-            .setTitle(`<:Moderator_Logo:1183460215782391828> | Menssage Edit`)
+            .setTitle(`Menssage Edit`)
             .addField('Autor', newMessage.author.tag);
 
         if (oldMessage.content && oldMessage.content.trim() !== '') {
@@ -192,45 +185,10 @@ client.on('messageDeleteBulk', (messages) => {
     if (logChannel) {
         const embed = new MessageEmbed()
             .setColor('#e74c3c')
-            .setTitle('<:Moderator_Logo:1183460215782391828> | Bulk Message Deletion')
+            .setTitle('Bulk Message Deletion')
             .addField('Number of Messages Deleted', messages.size.toString(), true)
             .addField('Deletion Date', new Date().toLocaleString(), true)
             .setFooter(`${messages.first().guild.name} | Moderation`)
-            .setTimestamp();
-
-        logChannel.send({ embeds: [embed] });
-    }
-});
-
-
-client.on('messagePin', (message) => {
-    const logChannel = client.channels.cache.get(logChannelId);
-
-    if (logChannel) {
-        const embed = new MessageEmbed()
-            .setColor('#3498db')
-            .setTitle('<:Moderator_Logo:1183460215782391828> | Message Pinned')
-            .addField('Author', message.author.tag, true)
-            .addField('Message Content', message.content, true)
-            .addField('Pinned Date', new Date().toLocaleString(), true)
-            .setFooter(`${message.guild.name} | Moderation`)
-            .setTimestamp();
-
-        logChannel.send({ embeds: [embed] });
-    }
-});
-
-client.on('messageUnpin', (message) => {
-    const logChannel = client.channels.cache.get(logChannelId);
-
-    if (logChannel) {
-        const embed = new MessageEmbed()
-            .setColor('#e74c3c')
-            .setTitle('<:Moderator_Logo:1183460215782391828> | Message Unpinned')
-            .addField('Author', message.author.tag, true)
-            .addField('Message Content', message.content, true)
-            .addField('Unpin Date', new Date().toLocaleString(), true)
-            .setFooter(`${message.guild.name} | Moderation`)
             .setTimestamp();
 
         logChannel.send({ embeds: [embed] });
@@ -245,7 +203,7 @@ client.on('roleCreate', (role) => {
     if (logChannel) {
         const embed = new MessageEmbed()
             .setColor('#27ae60')
-            .setTitle('<:Moderator_Logo:1183460215782391828> | Role Created')
+            .setTitle('Role Created')
             .addField('Role Name', role.name)
             .addField('Role ID', role.id)
             .setFooter(`${role.guild.name} | Moderation`)
@@ -262,7 +220,7 @@ client.on('roleDelete', (role) => {
     if (logChannel) {
         const embed = new MessageEmbed()
             .setColor('#e74c3c')
-            .setTitle('<:Moderator_Logo:1183460215782391828> | Role Deleted')
+            .setTitle('Role Deleted')
             .addField('Role Name', role.name)
             .addField('Role ID', role.id)
             .setFooter(`${role.guild.name} | Moderation`)
@@ -272,7 +230,6 @@ client.on('roleDelete', (role) => {
     }
 });
 
-// Function to get role changes
 function getRoleChanges(oldRole, newRole) {
     const changes = [];
 
@@ -295,7 +252,7 @@ client.on('guildMemberUpdate', (oldMember, newMember) => {
         if (addedRoles.size > 0) {
             const embed = new MessageEmbed()
                 .setColor('#27ae60')
-                .setTitle('<:Moderator_Logo:1183460215782391828> | Roles Given')
+                .setTitle('Roles Given')
                 .addField('Member', newMember.user.tag, true)
                 .addField('Roles Given', addedRoles.map(role => role.name).join(', '), true)
                 .setFooter(`${newMember.guild.name} | Moderation`)
@@ -314,7 +271,7 @@ client.on('guildMemberUpdate', (oldMember, newMember) => {
         if (removedRoles.size > 0) {
             const embed = new MessageEmbed()
                 .setColor('#e74c3c')
-                .setTitle('<:Moderator_Logo:1183460215782391828> | Roles Removed')
+                .setTitle('Roles Removed')
                 .addField('Member', newMember.user.tag, true)
                 .addField('Roles Removed', removedRoles.map(role => role.name).join(', '), true)
                 .setFooter(`${newMember.guild.name} | Moderation`)
@@ -334,7 +291,7 @@ client.on('guildBanAdd', (guild, user) => {
     if (logChannel) {
         const embed = new MessageEmbed()
             .setColor('#e74c3c')
-            .setTitle('<:Moderator_Logo:1183460215782391828> | Member Banned')
+            .setTitle('Member Banned')
             .addField('Member', user.tag, true)
             .addField('Member ID', user.id, true)
             .addField('Date', new Date().toLocaleString(), true)
@@ -352,7 +309,7 @@ client.on('guildBanRemove', (guild, user) => {
     if (logChannel) {
         const embed = new MessageEmbed()
             .setColor('#2ecc71')
-            .setTitle('<:Moderator_Logo:1183460215782391828> | Member Unbanned')
+            .setTitle('Member Unbanned')
             .addField('Member', user.tag, true)
             .addField('Member ID', user.id, true)
             .addField('Unban Date', new Date().toLocaleString(), true)
@@ -369,7 +326,7 @@ client.on('guildUpdate', (oldGuild, newGuild) => {
     if (logChannel) {
         const embed = new MessageEmbed()
             .setColor('#3498db')
-            .setTitle('<:Moderator_Logo:1183460215782391828> | Server Updated')
+            .setTitle('Server Updated')
             .addField('Old Name', oldGuild.name, true)
             .addField('New Name', newGuild.name, true)
             .addField('Change Date', new Date().toLocaleString(), true)
@@ -388,7 +345,7 @@ client.on('channelCreate', (channel) => {
     if (logChannel) {
         const embed = new MessageEmbed()
             .setColor('#2ecc71')
-            .setTitle('<:Moderator_Logo:1183460215782391828> | Channel Created')
+            .setTitle('Channel Created')
             .addField('Channel Name', channel.name, true)
             .addField('Channel ID', channel.id, true)
             .addField('Channel Type', channel.type, true)
@@ -406,7 +363,7 @@ client.on('channelDelete', (channel) => {
     if (logChannel) {
         const embed = new MessageEmbed()
             .setColor('#e74c3c')
-            .setTitle('<:Moderator_Logo:1183460215782391828> | Channel Deleted')
+            .setTitle('Channel Deleted')
             .addField('Channel Name', channel.name, true)
             .addField('Channel ID', channel.id, true)
             .addField('Channel Type', channel.type, true)
@@ -420,14 +377,14 @@ client.on('channelDelete', (channel) => {
 
 //SPEACIAL CHANNELS
 
-const boostChannelId = '1183426951323590767'; // Reemplaza con el ID de tu canal de Boost
+const boostChannelId = 'ID_DEL_CANAL_MEJORAS'; // Reemplaza con el ID de tu canal de Boost
 
 client.on('guildMemberBoost', (member) => {
     const boostChannel = client.channels.cache.get(boostChannelId);
 
     if (boostChannel) {
-        const boostCount = member.guild.premiumSubscriptionCount; // Get the current server boost count
-        const boostLevel = member.guild.premiumTier; // Get the server's current boost level
+        const boostCount = member.guild.premiumSubscriptionCount;
+        const boostLevel = member.guild.premiumTier;
 
         const embed = new MessageEmbed()
             .setColor('#3498db')
@@ -440,13 +397,13 @@ client.on('guildMemberBoost', (member) => {
     }
 });
 
-const guildDeleteChannelId = '1183178905641828393'; // Replace with your Guild Left channel ID
+const guildDeleteChannelId = 'ID_DEL_CANAL_GUILD_REMOVE';
 
 client.on('guildDelete', async (guild) => {
     const guildDeleteChannel = client.channels.cache.get(guildDeleteChannelId);
 
     if (guildDeleteChannel) {
-        const guildOwner = await guild.fetchOwner(); // Fetch the guild owner
+        const guildOwner = await guild.fetchOwner();
         const memberCount = guild.memberCount;
 
         const embed = new MessageEmbed()
@@ -460,13 +417,13 @@ client.on('guildDelete', async (guild) => {
     }
 });
 
-const guildAddChannelId = '1183178872217411624'; // Replace with your Guild Add channel ID
+const guildAddChannelId = 'ID_DEL_CANAL_GUILD_ADD';
 
 client.on('guildCreate', async (guild) => {
     const guildAddChannel = client.channels.cache.get(guildAddChannelId);
 
     if (guildAddChannel) {
-        const guildOwner = await guild.fetchOwner(); // Fetch the guild owner
+        const guildOwner = await guild.fetchOwner();
         const memberCount = guild.memberCount;
 
         const embed = new MessageEmbed()
@@ -482,13 +439,12 @@ client.on('guildCreate', async (guild) => {
 
 // VOICE LOG
 
-const voiceChannelId = '1183447592395350128'; // Reemplaza con el ID de tu canal de eventos de voz
+const voiceChannelId = 'ID_DEL_CANAL_LOGS_VOICE'; // Reemplaza con el ID de tu canal de eventos de voz
 
 client.on('voiceStateUpdate', (oldState, newState) => {
     const voiceEventChannel = client.channels.cache.get(voiceChannelId);
 
     if (voiceEventChannel) {
-        // Evento de unirse al canal de voz
         if (newState.channelId && oldState.channelId !== newState.channelId) {
             const embedJoin = new MessageEmbed()
                 .setColor('#27ae60')
@@ -499,8 +455,6 @@ client.on('voiceStateUpdate', (oldState, newState) => {
 
             voiceEventChannel.send({ embeds: [embedJoin] });
         }
-
-        // Evento de mute/desmute
         if (oldState.serverMute !== newState.serverMute) {
             const action = newState.serverMute ? 'muted' : 'unmuted';
 
@@ -518,15 +472,12 @@ client.on('voiceStateUpdate', (oldState, newState) => {
 
 // EVENT LOG ERRORS
 
-const webhookURL = 'https://discord.com/api/webhooks/1183180820891045990/uRjAv1ylvaTPDFkI4eSrOZ-tOA2hFZ2tn3-23DQ3PEMdLj38f3OymwupJbBCkNWeX_T_';
+const webhookURL = 'YOUR_WEBHOOK;
 
 const errorWebhook = new WebhookClient({ url: webhookURL });
 
 client.on('error', (error) => {
-    // Loguear el error en la consola
     console.error('Error:', error);
-
-    // Enviar el error a través del webhook
     const embed = new MessageEmbed()
         .setColor('#e74c3c')
         .setTitle('🚨 | Error Logs')
