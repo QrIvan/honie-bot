@@ -13,7 +13,7 @@ module.exports = {
 
     const embed = new MessageEmbed()
       .setColor('#0099ff')
-      .setTitle('`sytem@user/@discord/information`\n📂 **|** User Information')
+      .setTitle('📂 **|** User Information')
       .setThumbnail(user.displayAvatarURL({ dynamic: true }))
       .addField('User ID', user.id, true)
       .addField('Nickname', member ? member.displayName : 'N/A', true)
