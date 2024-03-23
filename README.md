@@ -44,5 +44,7 @@ Asegúrate de seguir un patrón establecido en **__slash_prefix.txt__** y en **_
 
 ## `🔗` Apoya mis proyectos
 [QrIvan#0105](https://interactionrun.carrd.co/)
+
 [Añádeme mi bot Aquí](https://rebrand.ly/folkinvite)
+
 [Discord de Soporte](https://rebrand.ly/folkdiscord)
