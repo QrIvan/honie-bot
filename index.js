@@ -9,9 +9,7 @@ const port = 3000;
 const app = express();
 const users = new Map();
 
-//XD
 console.clear();
-console.error('[WARNING] You are the best developer :)...');
 console.log(`----------------------------------------------------------`);
 console.log(`\ * C.E.O ɪɴᴛᴇʀᴀᴄᴛɪᴏɴ ʀᴜɴ`);
 console.log(`\ * C.E.O ʜᴏɴɪᴇ ꜱᴛᴜᴅɪᴏꜱ ᴛᴍ`);
@@ -19,44 +17,35 @@ console.log(`\ * Creator & Developer @ Honie Bot`);
 console.log('Loading....');
 console.log(`----------------------------------------------------------`);
 
-//XD
-
-// Creating a new client:
 const client = new Client({
     intents: 32767
 });
 
-// Creating a new host with express:
 app.get('/', (request, response) => {
     return response.sendFile('./web/index.html', { root: '.' });
 });
 app.listen(port, () => console.log("[WEBSITE] Express is ready."));
 
-// Collections and handler:
 client.commands = new Collection();
 client.slash_commands = new Collection();
 client.aliases = new Collection();
 client.events = new Collection();
 client.categories = fs.readdirSync("./commands");
 
-// Exporting the modules:
 module.exports = client;
 
-// Handler:
 ["prefix", "slash", "event"].forEach(handler => {
     require(`./handlers/${handler}`)(client);
 });
 
-// Anticrash handler:
 process.on('unhandledRejection', err => {
     console.log(`[ERROR] Unhandled promise rejection: ${err.message}.`);
     console.log(err);
 });
 
-// Login to the bot:
 const AUTH = process.env.TOKEN || config.client.TOKEN;
 if (!AUTH) {
-    console.warn("[WARN] You need to provide a Bot token!").then(async () => process.exit(1));
+    console.warn("[WARN] ¡Debes proporcionar un token de Bot!").then(async () => process.exit(1));
 } else {
-    client.login(AUTH).catch(() => console.log("[WARN] It seems like the token is invalid, please recheck it. If the this error stills showing, then enable the 3 Gateaway Intents."));
+    client.login(AUTH).catch(() => console.log("[WARN] Parece que el token no es válido; vuelva a verificarlo. Si este error sigue apareciendo, habilite los 3 intentos de puerta de enlace."));
 }
