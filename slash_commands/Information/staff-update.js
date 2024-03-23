@@ -22,7 +22,6 @@ module.exports = {
                 .setDescription('👮 The new rank to assign (default: Member)')
                 .setRequired(false)),
     async run(client, interaction) {
-        // Obtén las elecciones para la opción de "reason"
         const reasonChoices = [
             { name: 'Apply', value: 'Apply' },
             { name: 'Promote', value: 'Promote' },
@@ -32,8 +31,6 @@ module.exports = {
 
         interaction.options._hoistedOptions.find(opt => opt.name === 'reason').choices = reasonChoices;
 
-
-        // Check if the user has ADMINISTRATOR permission
         if (!interaction.member.permissions.has(Permissions.FLAGS.ADMINISTRATOR)) {
             return interaction.reply('You do not have permission to use this command.');
         }
@@ -51,7 +48,7 @@ module.exports = {
 
         const embed = new MessageEmbed()
             .setColor('#00ff00')
-            .setTitle('`sytem@user/staffmember/update`\n💼 Staff Update | New Update')
+            .setTitle('💼 Staff Update | New Update')
             .setDescription(`${user} **>** **(${reason})** **>** ${oldRank.toString()} **>** ${newRank.toString()}`);
 
         await interaction.reply({ embeds: [embed] });
