@@ -13,11 +13,11 @@ module.exports = {
 
         if (
             !member.permissions.has("MANAGE_CHANNELS") &&
-            !message.member.roles.cache.has('1183419688705867777')
+            !message.member.roles.cache.has('ROL_ADMIN')
         ) {
             const noPermissionEmbed = new MessageEmbed()
                 .setColor('#ff0000')
-                .setTitle('`sytem@user/perms/lock`\n<:Moderator_Logo:1183460215782391828> **LOCK CHANNEL** | Permission Denied')
+                .setTitle('**LOCK CHANNEL** | Permission Denied')
                 .setDescription('You do not have permissions to use this command.');
             return message.reply({ embeds: [noPermissionEmbed] });
         }
@@ -30,15 +30,15 @@ module.exports = {
                 deny: [Permissions.FLAGS.SEND_MESSAGES, Permissions.FLAGS.CONNECT],
             },
             {
-                id: "1183246678766133298",
+                id: "ROL_USER",
                 deny: [Permissions.FLAGS.SEND_MESSAGES, Permissions.FLAGS.CONNECT],
             },
             {
-                id: "1183246671673577483",
+                id: "ROL_USER",
                 deny: [Permissions.FLAGS.SEND_MESSAGES, Permissions.FLAGS.CONNECT],
             },
             {
-                id: "1183246670549504030",
+                id: "ROL_USER",
                 deny: [Permissions.FLAGS.SEND_MESSAGES, Permissions.FLAGS.CONNECT],
             },
         ];
@@ -52,7 +52,7 @@ module.exports = {
 
         const lockEmbed = new MessageEmbed()
             .setColor('RED')
-            .setDescription(`<:Moderator_Logo:1183460215782391828> **|** The channel ${channel} has been **locked**.`);
+            .setDescription(`The channel ${channel} has been **locked**.`);
 
         message.reply({ embeds: [lockEmbed] });
     },
