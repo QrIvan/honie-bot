@@ -7,12 +7,9 @@ module.exports = {
   description: 'Displays learning guides for MongoDB, Handlers, and JavaScript code snippets.',
   usage: 'guides',
   run: async (client, message, args) => {
-    // Create a selection menu component
     const selectMenu = new MessageSelectMenu()
       .setCustomId('menu-guides')
       .setPlaceholder('📚・ Click and select a category.');
-
-    // Add options to the menu
     selectMenu.addOptions([
       {
         label: '🍃 MongoDB',
@@ -36,32 +33,27 @@ module.exports = {
       },
     ]);
 
-    // Create an action row with the selection menu
     const row = new MessageActionRow().addComponents(selectMenu);
 
-    // Create an embed for the initial message
     const initialEmbed = new MessageEmbed()
       .setTitle('📚・➥ Learning Guides')
       .setColor('RANDOM')
       .setDescription('Select a category from the menu below to view the learning guides and resources.');
 
-    // Send the initial message with the menu
     await message.reply({ embeds: [initialEmbed], components: [row] });
 
-    // Event handler to handle menu selection
     const filter = (interaction) =>
       interaction.isSelectMenu() && interaction.customId === 'menu-guides';
 
     const collector = message.channel.createMessageComponentCollector({
       filter,
-      time: 60000, // Waiting time in milliseconds (60 seconds in this case)
+      time: 60000,
     });
 
     collector.on('collect', async (interaction) => {
       const selectedOption = interaction.values[0];
 
       if (selectedOption === 'mongodb') {
-        // MongoDB embed with real links
         const mongodbEmbed = new MessageEmbed()
           .setTitle('🍃 MongoDB Guides')
           .setColor('RANDOM')
@@ -79,7 +71,6 @@ module.exports = {
 
         interaction.reply({ embeds: [mongodbEmbed], ephemeral: true });
       } else if (selectedOption === 'handlers') {
-        // Handlers embed with real links
         const handlersEmbed = new MessageEmbed()
           .setTitle('🤖 Discord.js Handlers')
           .setColor('RANDOM')
@@ -95,7 +86,6 @@ module.exports = {
 
         interaction.reply({ embeds: [handlersEmbed], ephemeral: true });
       } else if (selectedOption === 'js-code') {
-        // JS Code Snippets embed
         const jsCodeEmbed = new MessageEmbed()
           .setTitle('💻 JavaScript Code Snippets')
           .setColor('RANDOM')
@@ -109,7 +99,6 @@ module.exports = {
 
         interaction.reply({ embeds: [jsCodeEmbed], ephemeral: true });
       } else if (selectedOption === 'coming') {
-        // Coming Soon embed
         const comingEmbed = new MessageEmbed()
           .setTitle('🔧 Coming Soon')
           .setColor('RANDOM')
@@ -121,7 +110,7 @@ module.exports = {
 
     collector.on('end', (collected) => {
       if (collected.size === 0) {
-        message.reply('<:Moderator_Logo:1183460215782391828> **GUIDES** | Time ran out to select a category.');
+        message.reply('**GUIDES** | Time ran out to select a category.');
       }
     });
   },
