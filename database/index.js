@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb+srv://DDv:yoPx0OVx2I5mgD4r@dsdev.qapom1v.mongodb.net/', {
+mongoose.connect('MONGO_URL_DD', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
-  serverSelectionTimeoutMS: 30000, // Aumenta el tiempo de espera
+  serverSelectionTimeoutMS: 30000, // Aumenta el tiempo de espera si es necesario
 });
 
 const db = mongoose.connection;
