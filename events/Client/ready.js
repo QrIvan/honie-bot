@@ -3,7 +3,6 @@ const config = require("../../config.json");
 const { MessageEmbed } = require('discord.js');
 const ms = require("ms");
 
-// Variables para guardar el estado actual
 let savedActivity;
 let savedStatus;
 
@@ -18,27 +17,23 @@ client.once('ready', async () => {
 
   console.log(`[NODEJS] Your IDE took ${up} to load and connect to the bot.`);
 
-  // Guarda el estado actual
   savedActivity = client.user.presence.activities[0];
   savedStatus = client.user.presence.status;
-
-  //, `${client.guilds.cache.size} servers`, `${client.users.cache.size} users!
 
   client.user.setStatus('idle');
 
   var activities = [`${status}`, `${status2}`, `${status3}`], i = 0;
-  //${config.prefix}help | 
   setInterval(() => client.user.setActivity(`${activities[i++ % activities.length]}`, { type: "PLAYING" }), 120000);
-  const channelId = '1183246703978090566'; // Reemplaza con el ID del canal al que deseas enviar el mensaje
+  const channelId = 'READY_CHANNEL:ID'; // Reemplaza con el ID del canal al que deseas enviar el mensaje
 
   const channel = client.channels.cache.get(channelId);
 
-  channel.send("<@&1183441457273638974> | <a:ZLogo3TTM:1183420441897996298>");
+  channel.send("<@&ROL FOR PING> | <Emoji>");
 
   if (channel) {
     const embed = new MessageEmbed()
       .setColor('#0099ff')
-      .setTitle('<a:ZLogo3TTM:1183420441897996298> | Bot On')
+      .setTitle('<Emoji> | Bot On')
       .setDescription(`Been online and ready to go.\nHard **${up}** to load all the data.`)
       .setTimestamp();
 
@@ -47,15 +42,10 @@ client.once('ready', async () => {
     console.error(`[CONSOLE ERROR] Could not find channel with ID ${channelId}.`);
   }
 });
-
-// Evento que se dispara cuando el bot se reconecta
 client.on('resume', (replayed) => {
   console.log(`[CLIENT] ${client.user.tag} has reconnected. Replayed ${replayed} events.`);
-  // Puedes realizar acciones adicionales en caso de reconexión si lo necesitas.
-
-  // Restablece el estado después de la reconexión
   client.user.setPresence({
-    activities: [savedActivity], // Restablece la actividad guardada
-    status: savedStatus, // Restablece el estado guardado
+    activities: [savedActivity],
+    status: savedStatus, 
   });
 });
