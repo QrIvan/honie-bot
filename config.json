@@ -1,10 +1,10 @@
 {
     "prefix": "h/",
     "client": {
-        "TOKEN": "MTE1OTYyNTAwNzA0ODE4MzkwOA.GPWW2K.kVx9KLdILhDX0tmuKfyOenv1a4OyY8SQPZ_MXk",
-        "ID": "1159625007048183908",
-        "LOGS_CHANNEL": "1163269047283101716",
-        "OWNER_ID": "828991790324514887"
+        "TOKEN": "BOT_TOKEN",
+        "ID": "BOT_ID",
+        "LOGS_CHANNEL": "CHANNEL_LOGS_ID",
+        "OWNER_ID": "YOUR_ID"
     },
     "handlers": {
         "slash": {
