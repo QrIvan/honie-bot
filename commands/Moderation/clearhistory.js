@@ -13,14 +13,13 @@ module.exports = {
     if (!user) {
       const embed = new MessageEmbed()
         .setColor('#ff0000')
-        .setTitle('`sytem@user/error/clearhistory`\n<:Moderator_Logo:1183460215782391828> **CLEAR HISTORY** | Missing Information')
+        .setTitle('**CLEAR HISTORY** | Missing Information')
         .setDescription('Valid use: `h/clearhistory [@user|user_id]`.');
       return message.reply({ embeds: [embed] });
     }
 
-    if (message.member.permissions.has(Permissions.FLAGS.MANAGE_MESSAGES) || message.member.roles.cache.has('1183246661309435944')) {
+    if (message.member.permissions.has(Permissions.FLAGS.MANAGE_MESSAGES) || message.member.roles.cache.has('ROL_STAFF/ADMIN')) {
       try {
-        // Eliminar registros de la base de datos
         await History.deleteMany({ user_id: user.id });
 
         const successEmbed = new MessageEmbed()
@@ -32,14 +31,14 @@ module.exports = {
         console.error('Error clearing sanction history:', error);
         const errorEmbed = new MessageEmbed()
           .setColor('#ff0000')
-          .setTitle('`sytem@user/error/clearhistory`\n<:Moderator_Logo:1183460215782391828> **CLEAR HISTORY** | Error')
+          .setTitle('**CLEAR HISTORY** | Error')
           .setDescription('An error occurred while clearing the sanction history.');
         message.reply({ embeds: [errorEmbed] });
       }
     } else {
       const noPermissionEmbed = new MessageEmbed()
         .setColor('#ff0000')
-        .setTitle('`sytem@user/perms/clearhistory`\n<:Moderator_Logo:1183460215782391828> **CLEAR HISTORY** | Permission Denied')
+        .setTitle('**CLEAR HISTORY** | Permission Denied')
         .setDescription('You do not have permission to use this command.');
       message.reply({ embeds: [noPermissionEmbed] });
     }
