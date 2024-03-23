@@ -13,12 +13,12 @@ module.exports = {
     if (!user) {
       const embed = new MessageEmbed()
         .setColor('#ff0000')
-        .setTitle('`sytem@user/error/history`\n<:Moderator_Logo:1183460215782391828> **HISTORY** | Missing Information')
+        .setTitle('**HISTORY** | Missing Information')
         .setDescription('Valid use: `h/history [@user|user_id]`.');
       return message.reply({ embeds: [embed] });
     }
 
-    if (message.member.permissions.has(Permissions.FLAGS.MANAGE_MESSAGES) || message.member.roles.cache.has('1183419688705867777')) {
+    if (message.member.permissions.has(Permissions.FLAGS.MANAGE_MESSAGES) || message.member.roles.cache.has('ROL_STAFF')) {
       try {
         const history = await History.find({ user_id: user.id }).sort({ timestamp: -1 });
 
@@ -30,7 +30,7 @@ module.exports = {
           return message.reply({ embeds: [embed] });
         }
 
-        const pageSize = 5; // Cantidad de sanciones por página
+        const pageSize = 5;
         const totalPages = Math.ceil(history.length / pageSize);
 
         let page = 1;
@@ -87,14 +87,14 @@ module.exports = {
         console.error('[CONSOLE ERROR] Error fetching sanction history:', error);
         const errorEmbed = new MessageEmbed()
           .setColor('#ff0000')
-          .setTitle('`sytem@user/error/history`\n<:Moderator_Logo:1183460215782391828> **HISTORY** | Error')
+          .setTitle('**HISTORY** | Error')
           .setDescription('An error occurred while fetching the sanction history.');
         message.reply({ embeds: [errorEmbed] });
       }
     } else {
       const noPermissionEmbed = new MessageEmbed()
         .setColor('#ff0000')
-        .setTitle('`sytem@user/perms/history`\n<:Moderator_Logo:1183460215782391828> **HISTORY** | Permission Denied')
+        .setTitle('**HISTORY** | Permission Denied')
         .setDescription('You do not have permission to use this command.');
       message.reply({ embeds: [noPermissionEmbed] });
     }
