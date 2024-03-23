@@ -1,6 +1,6 @@
 const { MessageEmbed, TextChannel } = require('discord.js');
 
-const feedbackChannelID = '1183246715298512988'; // Reemplaza con el ID del canal de feedback
+const feedbackChannelID = 'feedbackChannelID'; // Reemplaza con el ID del canal de feedback
 
 module.exports = {
     name: 'feedback',
@@ -15,7 +15,7 @@ module.exports = {
         if (!feedbackContent) {
             const embed = new MessageEmbed()
                 .setColor('RED')
-                .setTitle('`sytem@user/error/feedback`\n<:Moderator_Logo:1183460215782391828> **FEEDBACK** | Missing Error')
+                .setTitle('**FEEDBACK** | Missing Error')
                 .setDescription('Valid use: `h/feedback [feedback]`.');
 
             return message.reply({ embeds: [embed] });
@@ -26,20 +26,19 @@ module.exports = {
         if (feedbackChannel instanceof TextChannel) {
             const feedbackEmbed = new MessageEmbed()
                 .setColor('#e6db13')
-                .setTitle('<a:ZLogo4TTM:1183420453134532631> New Feedback')
+                .setTitle('New Feedback')
                 .setThumbnail(user.displayAvatarURL({ dynamic: true }))
-                .setDescription(`**Feedback**: ${feedbackContent}\n\n⤷ • Thank you for choosing our services! 🌟 We are delighted to have you with us. We will always strive to give you the best experience possible. If you have any questions or need assistance, don't hesitate to ask. We hope you have an amazing day!`)
+                .setDescription(`**Feedback**: ${feedbackContent}\n\n⤷ • Thank you for choosing our services! 🌟!`)
                 .setFooter(`From: ${message.author.tag}`)
                 .setTimestamp();
 
             feedbackChannel.send({ embeds: [feedbackEmbed] })
                 .then((feedbackMessage) => {
-                    // Agrega las reacciones
                     feedbackMessage.react('🌟');
 
                     const successEmbed = new MessageEmbed()
                         .setColor('GREEN')
-                        .setTitle('`sytem@user/new/feedback`\n<:utility12:1183420388580012094> **FEEDBACK** | Submitted')
+                        .setTitle('**FEEDBACK** | Submitted')
                         .setDescription('Your feedback has been submitted successfully.');
 
                     message.reply({ embeds: [successEmbed] });
@@ -48,7 +47,7 @@ module.exports = {
                     console.error('[CONSOLE ERROR] Error sending feedback:', error);
                     const errorEmbed = new MessageEmbed()
                         .setColor('RED')
-                        .setTitle('`sytem@user/error/feedback`\n<:Moderator_Logo:1183460215782391828> **FEEDBACK** | Error')
+                        .setTitle('**FEEDBACK** | Error')
                         .setDescription('Failed to submit the feedback. Please try again.');
 
                     message.reply({ embeds: [errorEmbed] });
@@ -56,7 +55,7 @@ module.exports = {
         } else {
             const channelErrorEmbed = new MessageEmbed()
                 .setColor('ORANGE')
-                .setTitle('`sytem@user/error/feedback`\n<:Moderator_Logo:1183460215782391828> **FEEDBACK** | Channel Error')
+                .setTitle('**FEEDBACK** | Channel Error')
                 .setDescription('Feedback channel not found. Please contact an administrator.');
 
             return message.reply({ embeds: [channelErrorEmbed] });
