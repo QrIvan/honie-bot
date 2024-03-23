@@ -12,7 +12,7 @@ module.exports = {
         try {
             const code = args.join(' ');
             if (!code) {
-                return message.reply('<:Honie_Moderator:1180623912497860728> **EVAL** | Valid use: `eval <code>`.');
+                return message.reply('**EVAL** | Valid use: `eval <code>`.');
             }
             let evaled = eval(code);
 
