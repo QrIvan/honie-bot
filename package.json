@@ -28,7 +28,7 @@
     "franc": "^6.1.0",
     "franc-min": "^6.1.0",
     "fs": "^0.0.1-security",
-    "genius-lyrics-api": "^3.2.0",
+    "genius-lyrics-api": "^3.2.1",
     "google-translate-api": "^2.3.0",
     "langs": "^2.0.0",
     "link-preview-js": "^3.0.5",
